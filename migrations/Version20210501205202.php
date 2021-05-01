@@ -20,7 +20,7 @@ final class Version20210501205202 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        // $this->addSql('DROP SEQUENCE role_id_seq CASCADE');
+        $this->addSql('DROP SEQUENCE role_id_seq CASCADE');
         $this->addSql('CREATE TABLE "user" (id INT NOT NULL, firstname VARCHAR(255) NOT NULL, lastname VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, job VARCHAR(255) DEFAULT NULL, description VARCHAR(255) DEFAULT NULL, role VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
     }
 
