@@ -34,14 +34,29 @@ $ git push -u origin --all
 
 ### A la racine du Projet:
 
-- Installer les dépendances avec composer / $ composer install
-- Lancer  la création et/ou le démarrage des conteneurs pour postgreSQL grace au docker-compose.yml / $ docker-compose up -d
-- Vérifier que les conteurs sont démarrés / $ docker ps
-- Configurer la bdd dans  le .env / DATABASE_URL="postgresql://postgres:changeme@127.0.0.1:5432/Hakathon?serverVersion=13&charset=utf8"
-- Créer la base de données / $ symfony console doctrine:database:create (S'assurer que le driver pdo_pgsql est installé sur php7.4 );
-- Migrer la base de données / $ symfony console doctrine:migrations:migrate
-- "Binder" les variables d'environnement du conteneur postgreSQL avec le projet  / $ docker-compose exec database psql postgres
+- Installer les dépendances avec composer
+- Lancer  la création et/ou le démarrage des conteneurs pour postgreSQL grace au docker-compose.yml du projet
+- Vérifier que les conteneurs sont démarrés
+- Configurer la bdd dans dans .env, pour la création et la migration de la base de données
+- Créer la base de données avec doctrine (S'assurer que le driver extension pdo_pgsql est installé sur php7.4 );
+- Migrer la base de données 
+- "Binder" les variables d'environnement du conteneur postgreSQL avec le projet  
 - Démarrer le server local avec Symfony cli /$ symfony serve
+
+```
+$ composer install
+$ docker-compose up -d
+$ docker ps
+```
+
+DATABASE_URL="postgresql://postgres:changeme@127.0.0.1:5432/Hakathon?serverVersion=13&charset=utf8"
+
+```
+$ symfony console doctrine:database:create
+$ symfony console doctrine:migrations:migrate
+$ docker-compose exec database psql postgres
+$ symfony serve
+```
 
 
 ### Configurer pgAdmin fourni par le conteneur:
@@ -68,8 +83,9 @@ $ git push -u origin --all
 Liste des commandes Heroku CLI: https://devcenter.heroku.com/articles/heroku-cli-commands
 
 ### CAS - 1: Le projet Heroku n'existe pas sur la plateforme Heroku
-```
 
+
+```
 $ heroku update // make sure Heroku CLi is on last version
 $ heroku login  // Appelle le navigateur pour faire l'authentification
     - cyrilvssll31@gmail.com
@@ -85,7 +101,7 @@ Dans composer.json prévoir les scripts à executer sur le server d'Heroku à ch
   - les jeux de fausses données
 
     exemple:
-
+    ```
     (...),
     "scripts": {
             (...),
@@ -94,18 +110,20 @@ Dans composer.json prévoir les scripts à executer sur le server d'Heroku à ch
             ]
         },
     (...)
+    ```
 
     Générer le htaccess du projet Symfony dans le dossier public pour les ré-écriture d'url sur server notamment éviter de d'avoir à écrire index.php dans l'url
-    - $ composer require symfony/apache-pack
-
+    ```
+    $ composer require symfony/apache-pack
+    ```
 ### Cas- 2: Le projet Heroku existe déjà sur la plateforme Heroku
-```
-$ heroku update // make sure Heroku CLi is on last version
-$ heroku login  // Appelle le navigateur pour faire l'authentification
-    - cyrilvssll31@gmail.com
-    - H@k@thon2021
-$ heroku git:remote -a api-hedy-lamarr // Connecte Heroku CLI au projet distant
-```
+    ```
+    $ heroku update // make sure Heroku CLi is on last version
+    $ heroku login  // Appelle le navigateur pour faire l'authentification
+        - cyrilvssll31@gmail.com
+        - H@k@thon2021
+    $ heroku git:remote -a api-hedy-lamarr // Connecte Heroku CLI au projet distant
+    ```
 
 ### Deployer les modification de l'api sur le serveur distant Heroku CI/CD
 
