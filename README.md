@@ -4,10 +4,11 @@
 
 ### Environnement du Host Local:
 
-- Installer php7.4 sur le host local/ Voir selon 
+- Installer php7.4 / Voir selon 
 - Installer Composer / https://getcomposer.org/doc/00-intro.md
-- Installer Symfony CLI sur le host local / https://symfony.com/download
-- Installer Docker sur le host local / https://docs.docker.com/get-docker/
+- Installer Symfony CLI / https://symfony.com/download
+- Installer Heroku CLI  /  https://devcenter.heroku.com/articles/heroku-cli
+- Installer Docker  / https://docs.docker.com/get-docker/
 - Clone du Dépôt / $ git clone https://github.com/HedyLamarr-CastelHackathon/back-herroku.git
 
 ### A la racine du Projet:
@@ -15,7 +16,7 @@
 - Installer les dépendances avec composer / $ composer install
 - Lancer  la creation et le démarrage des conteneurs pour postgreSQL grace au docker-compose.yml / $ docker-compose up -d
 - Vérifier que les conteurs sont démarrés / $ docker ps
-- Configurer la bdd dans  le .env / DATABASE_URL="postgresql://postgres:changeme@127.0.0.1:5432/HedyLamarr?serverVersion=13&charset=utf8"
+- Configurer la bdd dans  le .env / DATABASE_URL="postgresql://postgres:changeme@127.0.0.1:5432/Hakathon?serverVersion=13&charset=utf8"
 - Créer la base de données / $ symfony console doctrine:database:create
 - Migrer la base de données / $ symfony console doctrine:migrations:migrate
 - Binder les variables d'environnement du conteneur postgreSQL avec le projet  / $ docker-compose exec database psql postgres
@@ -41,6 +42,18 @@
 -  documentation:  https://127.0.0.1:8000/api        
 -  base de données: http://localhost:5050/browser/ (password: admin)
 
+
+### Deployer l'api sur Heroku
+
+Lorsque vous apportez des modification à l'application:
+
+Mettre à jour le dépôt
+- $ git add .
+- $ git commit -m"ma modification"
+- $ git push
+
+Lancer le déploiement sur Heroku
+- $ git push Heroku master   
 
 
 
