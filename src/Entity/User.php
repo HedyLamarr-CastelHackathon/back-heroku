@@ -42,7 +42,7 @@ class User
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     */
+     */ 
     private $description;
 
     /**
