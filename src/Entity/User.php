@@ -41,7 +41,7 @@ class User
     private $job;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
@@ -59,6 +59,11 @@ class User
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $birthday;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $gitHub;
 
     public function getId(): ?int
     {
@@ -157,6 +162,18 @@ class User
     public function setBirthday(?string $birthday): self
     {
         $this->birthday = $birthday;
+
+        return $this;
+    }
+
+    public function getGitHub(): ?string
+    {
+        return $this->gitHub;
+    }
+
+    public function setGitHub(?string $gitHub): self
+    {
+        $this->gitHub = $gitHub;
 
         return $this;
     }

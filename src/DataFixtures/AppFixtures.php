@@ -64,7 +64,8 @@ class AppFixtures extends Fixture
                  ->setDescription($users[$u]['description'])
                  ->setEmail($users[$u]['email'])
                  ->setBirthday($users[$u]['birthday'])
-                 ->setRole($users[$u]['role']);
+                 ->setRole($users[$u]['role'])
+                 ->setGitHub($users[$u]['role']);
             $manager->persist($user);
         }
         $manager->flush();
