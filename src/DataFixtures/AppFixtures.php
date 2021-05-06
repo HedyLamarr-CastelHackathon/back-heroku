@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Geo;
 use App\Entity\Type;
 use App\Entity\User;
+use App\Entity\Report;
 use App\Entity\Garbage;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -89,8 +90,8 @@ class AppFixtures extends Fixture
     $manager->flush();
 
     $data = json_decode(file_get_contents(__DIR__.'/data.json', true));
-    
-    foreach($data as $values){ 
+
+    foreach($data as $key=>$values){ 
 
         $l =  $values->fields->geo_point_2d;    
         $localisation =  json_encode($l);
@@ -108,10 +109,13 @@ class AppFixtures extends Fixture
 
         $manager->persist($geo);
         $manager->persist($garbage);
+
+        if( $key == 100){
+            break;
+        }
     }
 
     $manager->flush();
     
-
     }
 }

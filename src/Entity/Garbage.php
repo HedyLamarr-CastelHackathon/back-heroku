@@ -2,15 +2,21 @@
 
 namespace App\Entity;
 
+use App\Entity\Geo;
+use App\Entity\Type;
+use App\Entity\Report;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\GarbageRepository;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass=GarbageRepository::class)
+ * normalizationContext={"groups"={"read:Garbage"}}
+ * 
  */
 class Garbage
 {
@@ -18,11 +24,13 @@ class Garbage
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"read:Garbage"})
      */
     private $id;
 
 
     /**
+     * @Groups({"read:Garbage"})
      * @ORM\ManyToOne(targetEntity=Geo::class, inversedBy="garbages")
      */
     private $geo;
@@ -38,6 +46,7 @@ class Garbage
     private $reports;
 
     /**
+     * @Groups({"read:Garbage"})
      * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="garbages")
      */
     private $type;
@@ -117,4 +126,6 @@ class Garbage
 
         return $this;
     }
+
+
 }
