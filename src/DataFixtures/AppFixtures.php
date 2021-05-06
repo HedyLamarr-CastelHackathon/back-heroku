@@ -6,6 +6,7 @@ use App\Entity\Geo;
 use App\Entity\Type;
 use App\Entity\User;
 use App\Entity\Wish;
+use App\Entity\Report;
 use App\Entity\Garbage;
 use Psr\Log\LoggerInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -15,10 +16,13 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 class AppFixtures extends Fixture
 {
 
+    //injected Dependencies
     private $manager;
+    private $log;
+
+    //Class properties
     private $saveType;
     private $types;
-    private $log;
 
 
     public function __construct(LoggerInterface $log)
@@ -90,7 +94,7 @@ class AppFixtures extends Fixture
     }
 
     /**
-     * Insert Garbages
+     * Insert all Garbages
      *
      * @return $this
      */
@@ -129,7 +133,7 @@ class AppFixtures extends Fixture
     }
 
     /**
-     * Insert Wishes
+     * Insert some Wishes
      *
      * @return $this
      */
@@ -150,6 +154,29 @@ class AppFixtures extends Fixture
             $this->manager->persist($wish);
         }
         $this->manager->flush();
+        return $this;
+    }
+
+    /**
+     * Insert some report
+     *
+     * @return void
+     */
+    private function insertReports(){
+        // ask for a repositoryClass of garbages
+        // $garbageRepo = $this->manager->getRepository('Garbage');
+        // // limit to 10
+        // $garbages = $garbageRepo->findBy([],[],$limit = 10, $offset = rand(1,100));git 
+        // // with itération on insert random booleans on state
+        // foreach($garbages as $key => $values){
+        //     $report = new Report();
+        //     $report->setGarbage($garbage)
+        //            ->setIsFull(rand(0,1))
+        //            ->setIsHere(rand(0,1))
+        //            ->setIsDamaged(rand(0,1));
+        //     $this->manager->persist($report);   
+        // }
+
         return $this;
     }
 }
