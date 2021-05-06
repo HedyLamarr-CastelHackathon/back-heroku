@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Geo;
 use App\Entity\Type;
 use App\Entity\User;
+use App\Entity\Wish;
 use App\Entity\Garbage;
 use Psr\Log\LoggerInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -33,7 +34,8 @@ class AppFixtures extends Fixture
 
         $this->insertUsers()
             ->insertTypes()
-            ->insertGarbages();
+            ->insertGarbages()
+            ->insertWishes();
     }
 
 
@@ -123,6 +125,31 @@ class AppFixtures extends Fixture
 
         $this->manager->flush();
 
+        return $this;
+    }
+
+    /**
+     * Insert Wishes
+     *
+     * @return $this
+     */
+    private function insertWishes(){
+
+        for($w = 0 ; $w < 15; $w++ ){
+            $wish = new Wish();
+            $geo = new Geo();
+
+            $localisation =  '{ 47.74868898'.rand(10, 99).',7.334292850'.rand(10, 99) .'}';
+            $this->log->info($localisation);
+            $geo->setLocalisation($localisation);
+            $this->manager->persist($geo);
+            
+            $wish->setType($this->saveType[rand(0, 2)])
+                 ->setGeo($geo);
+
+            $this->manager->persist($wish);
+        }
+        $this->manager->flush();
         return $this;
     }
 }
