@@ -2,7 +2,10 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Geo;
+use App\Entity\Type;
 use App\Entity\User;
+use App\Entity\Garbage;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
@@ -74,5 +77,41 @@ class AppFixtures extends Fixture
             $manager->persist($user);
         }
         $manager->flush();
+
+    $saveType =array();
+    $types = ['C1','C2','C3'];
+    foreach($types as $value ){
+        $type = new Type();
+        $type->setCode($value);
+        $manager->persist($type);
+        $saveType[] = $type;
+    }
+    $manager->flush();
+
+    $data = json_decode(file_get_contents(__DIR__.'/data.json', true));
+    
+    foreach($data as $values){ 
+
+        $l =  $values->fields->geo_point_2d;    
+        $localisation =  json_encode($l);
+        $types = $values->fields->code_corbe;
+
+        $geo = new Geo();
+        $geo->setLocalisation($localisation);
+
+        $garbage = new Garbage();
+            $garbage->setGeo($geo)
+            ->setType($saveType[rand(0,2)])
+            ->setIsActive(1);
+
+        $geo->addGarbage($garbage);
+
+        $manager->persist($geo);
+        $manager->persist($garbage);
+    }
+
+    $manager->flush();
+    
+
     }
 }
