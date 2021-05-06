@@ -2,14 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\GeoRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\GeoRepository;
+use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *   normalizationContext={"groups"={"geo_read"}},
+ * )
  * @ORM\Entity(repositoryClass=GeoRepository::class)
  */
 class Geo
@@ -18,11 +21,13 @@ class Geo
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"geo_read", "garbage_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"geo_read", "garbage_read"})
      */
     private $localisation;
 
