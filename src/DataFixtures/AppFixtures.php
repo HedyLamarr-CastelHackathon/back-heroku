@@ -158,7 +158,7 @@ class AppFixtures extends Fixture
     }
 
     /**
-     * Insert some report
+     * Insert some reports
      *
      * @return void
      */

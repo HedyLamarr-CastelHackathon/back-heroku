@@ -13,9 +13,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={"groups"={"garbage_read"}},
+ * )
  * @ORM\Entity(repositoryClass=GarbageRepository::class)
- * normalizationContext={"groups"={"read:Garbage"}}
+ * 
  * 
  */
 class Garbage
@@ -24,29 +26,32 @@ class Garbage
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"read:Garbage"})
+     * @Groups({"garbage_read"})
      */
     private $id;
 
 
     /**
-     * @Groups({"read:Garbage"})
+     * 
+     * @Groups({"garbage_read"})
      * @ORM\ManyToOne(targetEntity=Geo::class, inversedBy="garbages")
      */
     private $geo;
 
     /**
+     *
      * @ORM\Column(type="boolean")
      */
     private $isActive;
 
     /**
+     * 
      * @ORM\OneToMany(targetEntity=Report::class, mappedBy="garbage")
      */
     private $reports;
 
     /**
-     * @Groups({"read:Garbage"})
+     * @Groups({"garbage_read"})
      * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="garbages")
      */
     private $type;

@@ -9,3 +9,5 @@ api_platform:
     collection:
         pagination:
             enabled : false
+
+
