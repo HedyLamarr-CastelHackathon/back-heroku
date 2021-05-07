@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Wish;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class WishCrudController extends AbstractCrudController
@@ -11,15 +12,14 @@ class WishCrudController extends AbstractCrudController
     {
         return Wish::class;
     }
+    
 
-    /*
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
+            AssociationField::new('type')->setLabel('Catégorie'),
+            AssociationField::new('geo')->setLabel('Localisation'),
         ];
     }
-    */
+    
 }

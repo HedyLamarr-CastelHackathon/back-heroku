@@ -22,13 +22,13 @@ class Type
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"type_read", "garbage_read", "type_write", "garbage_write"})
+     * @Groups({"type_read", "garbage_read", "wish_read", "wish_write", "type_write", "garbage_write"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"type_read", "garbage_read", "type_write", "garbage_write"})
+     * @Groups({"type_read", "garbage_read", "wish_read","wish_write", "type_write", "garbage_write"})
      */
     private $code;
 

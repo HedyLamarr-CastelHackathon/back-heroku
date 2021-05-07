@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ApiResource(
  *  normalizationContext={"groups"={"wish_read"}},
- * denormalizationContext={"groups"={"wish_write"}}
+ *  denormalizationContext={"groups"={"wish_write"}}
  * )
  * @ORM\Entity(repositoryClass=WishRepository::class)
  */

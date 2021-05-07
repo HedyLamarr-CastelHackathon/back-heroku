@@ -20,6 +20,7 @@ class ReportCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->onlyOnIndex(),
+            AssociationField::new('garbage')->setLabel('Poubelle')->onlyOnIndex(),
             BooleanField::new('isFull')->setLabel('Poubelle Pleine'),
             BooleanField::new('isDamaged')->setLabel('Endommagée'),
             BooleanField::new('isHere')->setLabel('En place'),  

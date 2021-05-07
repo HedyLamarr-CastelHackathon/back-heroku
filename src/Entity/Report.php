@@ -92,7 +92,7 @@ class Report
 
         return $this;
     }
-  
+
 
 
 }
