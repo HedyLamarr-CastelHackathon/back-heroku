@@ -23,6 +23,7 @@ class AppFixtures extends Fixture
     //Class properties
     private $saveType;
     private $types;
+    private $garbages;
 
 
     public function __construct(LoggerInterface $log)
@@ -30,6 +31,7 @@ class AppFixtures extends Fixture
         $this->saveType = [];
         $this->types = ['C1', 'C2', 'C3'];
         $this->log = $log;
+        $this->garbages = [];
     }
 
     public function load(ObjectManager $manager)
@@ -39,7 +41,8 @@ class AppFixtures extends Fixture
         $this->insertUsers()
             ->insertTypes()
             ->insertGarbages()
-            ->insertWishes();
+            ->insertWishes()
+            ->insertReports();
     }
 
 
@@ -117,6 +120,7 @@ class AppFixtures extends Fixture
                 ->setType($this->saveType[rand(0, 2)])
                 ->setIsActive(1);
 
+            array_push($this->garbages, $garbage);
             $geo->addGarbage($garbage);
 
             $this->manager->persist($geo);
@@ -160,22 +164,19 @@ class AppFixtures extends Fixture
     /**
      * Insert some reports
      *
-     * @return void
+     * @return $this
      */
     private function insertReports(){
-        // ask for a repositoryClass of garbages
-        // $garbageRepo = $this->manager->getRepository('Garbage');
-        // // limit to 10
-        // $garbages = $garbageRepo->findBy([],[],$limit = 10, $offset = rand(1,100));git 
-        // // with itération on insert random booleans on state
-        // foreach($garbages as $key => $values){
-        //     $report = new Report();
-        //     $report->setGarbage($garbage)
-        //            ->setIsFull(rand(0,1))
-        //            ->setIsHere(rand(0,1))
-        //            ->setIsDamaged(rand(0,1));
-        //     $this->manager->persist($report);   
-        // }
+  
+  
+        for($g = 0 ; $g < 3 ; $g++){
+            $report = new Report();
+            $report->setGarbage($this->garbages[rand(0,100)])
+                   ->setIsFull(rand(0,1))
+                   ->setIsHere(1)
+                   ->setIsDamaged(rand(0,1));
+            $this->manager->persist($report);   
+        }
 
         return $this;
     }
