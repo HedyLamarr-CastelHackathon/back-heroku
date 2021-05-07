@@ -126,6 +126,15 @@ class Type
 
     public function __toString()
     {
+
+        if($this->code == 'C1'){
+            $this->code = 'Poubelles Grise - C1';
+        }else if($this->code == 'C2'){
+             $this->code = 'Poubelles jaune - C2';
+        }else{
+            $this->code = 'Poubelles Verte - C3';
+        }
+
         return $this->code;
     }
 

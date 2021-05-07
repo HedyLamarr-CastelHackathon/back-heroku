@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Garbage;
+use App\Repository\TypeRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -21,8 +22,11 @@ class GarbageCrudController extends AbstractCrudController
         return [
             IdField::new('id')->onlyOnIndex(),
             BooleanField::new('isActive')->setLabel('En Service'),
-            AssociationField::new('type'),
+            AssociationField::new('type')->setLabel('Catégorie'),
+            AssociationField::new('geo')->setLabel('Localisation'),
   
         ];
     }
+
+   
 }

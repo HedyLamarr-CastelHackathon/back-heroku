@@ -56,6 +56,7 @@ class Garbage
      */
     private $type;
 
+
     public function __construct()
     {
         $this->reports = new ArrayCollection();

@@ -22,9 +22,7 @@ class ReportCrudController extends AbstractCrudController
             IdField::new('id')->onlyOnIndex(),
             BooleanField::new('isFull')->setLabel('Poubelle Pleine'),
             BooleanField::new('isDamaged')->setLabel('Endommagée'),
-            BooleanField::new('isHere')->setLabel('En place'),
-
-  
+            BooleanField::new('isHere')->setLabel('En place'),  
         ];
     }
     
