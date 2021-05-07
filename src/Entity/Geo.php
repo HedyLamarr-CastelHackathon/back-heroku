@@ -12,6 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ApiResource(
  *   normalizationContext={"groups"={"geo_read"}},
+ *   denormalizationContext={"groups"={"geo_write"}}
  * )
  * @ORM\Entity(repositoryClass=GeoRepository::class)
  */
@@ -21,13 +22,13 @@ class Geo
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"geo_read", "garbage_read"})
+     * @Groups({"geo_read", "garbage_read", "wish_read","geo_write", "type_write", "garbage_write" })
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"geo_read", "garbage_read"})
+     * @Groups({"geo_read", "garbage_read", "wish_read","geo_write", "type_write", "garbage_write" })
      */
     private $localisation;
 

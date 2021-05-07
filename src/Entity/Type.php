@@ -11,7 +11,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *  normalizationContext={"groups"={"type_read"}}
+ *  normalizationContext={"groups"={"type_read"}},
+ *  denormalizationContext={"groups"={"type_write"}}
  * )
  * @ORM\Entity(repositoryClass=TypeRepository::class)
  */
@@ -21,13 +22,13 @@ class Type
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"type_read", "garbage_read"})
+     * @Groups({"type_read", "garbage_read", "type_write", "garbage_write"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"type_read", "garbage_read"})
+     * @Groups({"type_read", "garbage_read", "type_write", "garbage_write"})
      */
     private $code;
 
@@ -38,6 +39,7 @@ class Type
 
     /**
      * @ORM\OneToMany(targetEntity=Wish::class, mappedBy="type")
+     * 
      */
     private $wishes;
 

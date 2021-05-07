@@ -15,6 +15,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ApiResource(
  *     normalizationContext={"groups"={"garbage_read"}},
+ *     denormalizationContext={"groups"={"garbage_write"}}
  * )
  * @ORM\Entity(repositoryClass=GarbageRepository::class)
  * 
@@ -26,14 +27,14 @@ class Garbage
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"garbage_read"})
+     * @Groups({"garbage_read", "garbage_write"})
      */
     private $id;
 
 
     /**
      * 
-     * @Groups({"garbage_read"})
+     * @Groups({"garbage_read", "garbage_write"})
      * @ORM\ManyToOne(targetEntity=Geo::class, inversedBy="garbages")
      */
     private $geo;
@@ -51,7 +52,7 @@ class Garbage
     private $reports;
 
     /**
-     * @Groups({"garbage_read"})
+     * @Groups({"garbage_read", "garbage_write"})
      * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="garbages")
      */
     private $type;
