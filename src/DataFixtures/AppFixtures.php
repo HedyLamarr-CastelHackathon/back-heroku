@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Entity\Wish;
 use App\Entity\Report;
 use App\Entity\Garbage;
+use App\Services\RequestAPI;
 use Psr\Log\LoggerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -19,6 +20,7 @@ class AppFixtures extends Fixture
     //injected Dependencies
     private $manager;
     private $log;
+    private $requestAPI;
 
     //Class properties
     private $saveType;
@@ -26,11 +28,13 @@ class AppFixtures extends Fixture
     private $garbages;
 
 
-    public function __construct(LoggerInterface $log)
+    public function __construct(LoggerInterface $log, RequestAPI $requestAPI)
     {
+        $this->requestAPI = $requestAPI;
+        $this->log = $log;
+
         $this->saveType = [];
         $this->types = ['C1', 'C2', 'C3'];
-        $this->log = $log;
         $this->garbages = [];
     }
 
@@ -108,12 +112,15 @@ class AppFixtures extends Fixture
 
         foreach ($data as $key => $values) {
 
-            $l =  $values->fields->geo_point_2d;
-            $localisation = json_encode($l);
+            $localization =  $values->fields->geo_point_2d;
+            $address = $this->getAddress($localization);
+            $localization = json_encode($localization);
             // $types = $values->fields->code_corbe;
+    
 
             $geo = new Geo();
-            $geo->setLocalisation($localisation);
+            $geo->setLocalisation($localization)
+                ->setAddress($address);
 
             $garbage = new Garbage();
             $garbage->setGeo($geo)
@@ -178,6 +185,35 @@ class AppFixtures extends Fixture
             $this->manager->persist($report);   
         }
 
+        $this->manager->flush();
+
         return $this;
+    }
+
+    private function getAddress(array $localization){
+        
+        $lat = $localization[0];
+        $lon = $localization[1];
+
+
+        $this->log->info('LONG: ' .$lon);
+        $this->log->info('LAT: '.$lat);
+
+        $this->requestAPI
+            ->setMethod('GET')
+            ->setResource('reverse/?lon='.$lon.'&lat='.$lat)
+            ->send();
+
+        $address = $this->requestAPI->getResponse();    
+
+        $properties = $address['features'][0]['properties'];
+
+        $street = $properties['name'];
+        $postcode = $properties['postcode'];
+        $city = $properties['city'];
+   
+
+        return $street . ', ' . $postcode .' '. $city ;
+
     }
 }

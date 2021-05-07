@@ -33,6 +33,12 @@ class Geo
     private $localisation;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"geo_read", "garbage_read", "wish_read","geo_write", "type_write", "garbage_write" })
+     */
+    private $address;
+    
+    /**
      * @ORM\OneToMany(targetEntity=Garbage::class, mappedBy="geo")
      */
     private $garbages;
@@ -41,6 +47,7 @@ class Geo
      * @ORM\OneToMany(targetEntity=Wish::class, mappedBy="geo")
      */
     private $wishes;
+
 
     public function __construct()
     {
@@ -129,6 +136,18 @@ class Geo
     public function __toString()
     {
         return $this->localisation;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
     }
 
 }
