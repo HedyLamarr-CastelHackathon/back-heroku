@@ -4,6 +4,7 @@
 
 Stack: Symfony4.4 LTS avec api-platform connecté à postgreSQL en CI/CD 
 Type: API REST niveau 3 Driving-Hypermedia en JSON-LD
+url de l'api :  http://api-hedy-lamarr.herokuapp.com/
 
 ## CREATION DU PROJET
 
